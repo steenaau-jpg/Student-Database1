@@ -37,7 +37,7 @@ int main()
 		m_StudentArray[i] = Student;
 	}
 
-	
+
 	do
 	{
 		cout << "\n\n************* MENU *************\n";
@@ -48,94 +48,94 @@ int main()
 		cout << "Enter choice: " << endl;
 		cin >> choice;
 
-switch (choice)
-{
-case 1:
-	cout << "\nIndex\tName\tAge\n";
-	cout << "----------------------\n";
-
-	for (int i = 0; i < iNoOfStudents; i++)
-	{
-		cout << i << "\t"
-			<< (LPCTSTR)m_StudentArray[i].m_strName << "\t"
-			<< m_StudentArray[i].m_iAge << endl;
-	}
-	break;
-
-	case 2:
-	{
-	 int index;
-
-	cout << "\nCurrent Students:\n";
-	for (int i = 0; i < iNoOfStudents; i++)
-	{
-	cout << i << " - " << (LPCTSTR)m_StudentArray[i].m_strName << endl;
-	}
-
-	cout << "\nEnter index to delete: ";
-	cin >> index;
-
-	if (index >= 0 && index < iNoOfStudents)
-	{
-		for (int i = index; i < iNoOfStudents - 1; i++)
+		switch (choice)
 		{
-			m_StudentArray[i] = m_StudentArray[i + 1];
+		case 1:
+			cout << "\nIndex\tName\tAge\n";
+			cout << "----------------------\n";
+
+			for (int i = 0; i < iNoOfStudents; i++)
+			{
+				cout << i << "\t"
+					<< (LPCTSTR)m_StudentArray[i].m_strName << "\t"
+					<< m_StudentArray[i].m_iAge << endl;
+			}
+			break;
+
+		case 2:
+		{
+			int index;
+
+			cout << "\nCurrent Students:\n";
+			for (int i = 0; i < iNoOfStudents; i++)
+			{
+				cout << i << " - " << (LPCTSTR)m_StudentArray[i].m_strName << endl;
+			}
+
+			cout << "\nEnter index to delete: ";
+			cin >> index;
+
+			if (index >= 0 && index < iNoOfStudents)
+			{
+				for (int i = index; i < iNoOfStudents - 1; i++)
+				{
+					m_StudentArray[i] = m_StudentArray[i + 1];
+				}
+
+				iNoOfStudents--;
+
+				cout << "\nStudent deleted successfully!\n";
+			}
+			else
+			{
+				cout << "\nInvalid index!\n";
+			}
+			break;
 		}
 
-		iNoOfStudents--;
+		case 3:
+			cout << "\nDo you want to save (y/n):- ";
+			cin >> YesOrNo;
 
-	cout << "\nStudent deleted successfully!\n";
-	 }
-	else
-		{
-	cout << "\nInvalid index!\n";
+			if (YesOrNo == 'Y' || YesOrNo == 'y')
+			{
+				cout << "Enter file name:- ";
+				cin >> strFileName;
+
+				CStdioFile file;
+
+				file.Open(strFileName,
+					CFile::modeCreate |
+					CFile::modeWrite |
+					CFile::shareExclusive);
+
+				for (int i = 0; i < iNoOfStudents; i++)
+				{
+
+					CString data;
+					data.Format("%s,%d\n", m_StudentArray[i].m_strName,
+						m_StudentArray[i].m_iAge);
+
+					file.WriteString(data);
+				}
+
+				file.Close();
+
+				cout << "\nData saved successfully!\n";
+			}
+			break;
+
+		case 4:
+			cout << "\nExiting...\n";
+			break;
+
+		default:
+			cout << "\nInvalid choice!\n";
+			break;
 		}
-	break;
-	}
 
-	case 3:
-	cout << "\nDo you want to save (y/n):- ";
-	cin >> YesOrNo;
+	} while (choice != 4);
 
-	if (YesOrNo == 'Y' || YesOrNo == 'y')
-	{
-		cout << "Enter file name:- ";
-		cin >> strFileName;
-
- CStdioFile file;
-
-	file.Open(strFileName,
-		CFile::modeCreate |
-		CFile::modeWrite |
-		CFile::shareExclusive);
-
-	for (int i = 0; i < iNoOfStudents; i++)
-	{
-
-	CString data;
-	data.Format("%s,%d\n",m_StudentArray[i].m_strName,
-							m_StudentArray[i].m_iAge);
-
-	file.WriteString(data);
-	}
-
-	file.Close();
-
-	cout << "\nData saved successfully!\n";
-	}
-	break;
-
-	case 4:
-	cout << "\nExiting...\n";
-	break;
-
-	default:
-	cout << "\nInvalid choice!\n";
-	break;
-	}
-
-		} while (choice != 4);
-		
 	_getch();
 	return 0;
 }
