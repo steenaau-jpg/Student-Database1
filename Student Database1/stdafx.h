@@ -12,6 +12,7 @@
 #include <afx.h>
 #include <conio.h>
 #include <iostream>
+#include <vector>
 
 
 

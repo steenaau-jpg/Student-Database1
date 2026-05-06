@@ -1,1 +1,4 @@
-sanu,15
+ami,23
+sara,22
+winter,12
+alan,26
